@@ -1,0 +1,337 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2crv7blnwkef"]
+
+[ext_resource type="Script" uid="uid://bhpwanl7244xh" path="res://control.gd" id="1_0fbet"]
+[ext_resource type="Script" uid="uid://kmlh0cbgxtpi" path="res://state_machine/init.gd" id="2_ee4bf"]
+[ext_resource type="Script" uid="uid://b1xqflea538p3" path="res://state_machine/pause.gd" id="3_kbped"]
+[ext_resource type="Script" uid="uid://c680l6wcioafn" path="res://state_machine/running.gd" id="4_fj5cn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uchyk"]
+font_size = 48
+
+[sub_resource type="LabelSettings" id="LabelSettings_ee4bf"]
+font_size = 12
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0fbet")
+
+[node name="Body" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_right = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="Body"]
+layout_mode = 2
+text = "效率计算器"
+label_settings = SubResource("LabelSettings_uchyk")
+horizontal_alignment = 1
+
+[node name="Space1" type="Control" parent="Body"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Body"]
+layout_mode = 2
+columns = 2
+
+[node name="TimeCaption" type="Label" parent="Body/GridContainer"]
+layout_mode = 2
+text = "计时："
+horizontal_alignment = 1
+
+[node name="Time" type="Label" parent="Body/GridContainer"]
+layout_mode = 2
+text = "00:00:00"
+
+[node name="CountCaption" type="Label" parent="Body/GridContainer"]
+layout_mode = 2
+text = "计数："
+horizontal_alignment = 1
+
+[node name="Count" type="Label" parent="Body/GridContainer"]
+layout_mode = 2
+text = "0.0"
+
+[node name="EfficiencyCaption" type="Label" parent="Body/GridContainer"]
+layout_mode = 2
+text = "效率："
+
+[node name="EfficiencyShown" type="HBoxContainer" parent="Body/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Efficiency" type="Label" parent="Body/GridContainer/EfficiencyShown"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+text = "0.0"
+
+[node name="EfficiencyUnit" type="Button" parent="Body/GridContainer/EfficiencyShown"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "每秒"
+
+[node name="Space2" type="Control" parent="Body"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="StartTimer" type="Button" parent="Body"]
+layout_mode = 2
+text = "开始计时"
+
+[node name="PauseTimer" type="Button" parent="Body"]
+layout_mode = 2
+text = "暂停计时"
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Body"]
+layout_mode = 2
+
+[node name="ResumeTimer" type="Button" parent="Body/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "恢复计时"
+
+[node name="EndButton" type="Button" parent="Body/ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "结束计时"
+
+[node name="Space3" type="Control" parent="Body"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="StepCaption" type="Label" parent="Body"]
+layout_mode = 2
+text = "设置步进"
+horizontal_alignment = 1
+
+[node name="StepControlContainer" type="HBoxContainer" parent="Body"]
+layout_mode = 2
+
+[node name="Desc" type="Button" parent="Body/StepControlContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<<"
+
+[node name="Step" type="LineEdit" parent="Body/StepControlContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+alignment = 1
+virtual_keyboard_type = 3
+
+[node name="Add" type="Button" parent="Body/StepControlContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = ">>"
+
+[node name="ChangeByStep" type="HBoxContainer" parent="Body"]
+layout_mode = 2
+
+[node name="DescByStep" type="Button" parent="Body/ChangeByStep"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "按步进值降低"
+
+[node name="AddByStep" type="Button" parent="Body/ChangeByStep"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "按步进值增加"
+
+[node name="Space4" type="Control" parent="Body"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="InitSetting" type="VBoxContainer" parent="Body"]
+layout_mode = 2
+
+[node name="UseInit" type="HBoxContainer" parent="Body/InitSetting"]
+layout_mode = 2
+
+[node name="UseInitCaption" type="Label" parent="Body/InitSetting/UseInit"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "是否更改初始计数"
+
+[node name="UseInitControl" type="CheckButton" parent="Body/InitSetting/UseInit"]
+layout_mode = 2
+
+[node name="SetInit" type="HBoxContainer" parent="Body/InitSetting"]
+visible = false
+layout_mode = 2
+
+[node name="SetInitCaption" type="Label" parent="Body/InitSetting/SetInit"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "设置初始值"
+
+[node name="SetInitControl" type="LineEdit" parent="Body/InitSetting/SetInit"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0.0"
+alignment = 1
+virtual_keyboard_type = 3
+
+[node name="FastInput" type="VBoxContainer" parent="Body"]
+layout_mode = 2
+
+[node name="ShownButton" type="HBoxContainer" parent="Body/FastInput"]
+layout_mode = 2
+
+[node name="Caption" type="Label" parent="Body/FastInput/ShownButton"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "启用快速输入键盘"
+
+[node name="Control" type="CheckButton" parent="Body/FastInput/ShownButton"]
+layout_mode = 2
+
+[node name="FastInputControl" type="VBoxContainer" parent="Body/FastInput"]
+visible = false
+layout_mode = 2
+
+[node name="KeyboardInput" type="LineEdit" parent="Body/FastInput/FastInputControl"]
+layout_mode = 2
+text = "0"
+alignment = 1
+editable = false
+
+[node name="Keyboard" type="GridContainer" parent="Body/FastInput/FastInputControl"]
+layout_mode = 2
+columns = 3
+
+[node name="1" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1"
+
+[node name="2" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "2"
+
+[node name="3" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "3"
+
+[node name="4" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "4"
+
+[node name="5" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "5"
+
+[node name="6" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "6"
+
+[node name="7" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "7"
+
+[node name="8" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "8"
+
+[node name="9" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "9"
+
+[node name="10" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+
+[node name="Dot" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "."
+
+[node name="Negtive" type="Button" parent="Body/FastInput/FastInputControl/Keyboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "-"
+
+[node name="Commit" type="HBoxContainer" parent="Body/FastInput/FastInputControl"]
+layout_mode = 2
+
+[node name="CommitButton" type="Button" parent="Body/FastInput/FastInputControl/Commit"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "确认输入"
+
+[node name="ClearButton" type="Button" parent="Body/FastInput/FastInputControl/Commit"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "清除输入"
+
+[node name="BackspaceButton" type="Button" parent="Body/FastInput/FastInputControl/Commit"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "退格"
+
+[node name="Space0" type="Label" parent="Body"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "v1.0.0 made by fesdfe"
+label_settings = SubResource("LabelSettings_ee4bf")
+vertical_alignment = 2
+
+[node name="StateMachine" type="Node" parent="."]
+
+[node name="Init" type="Node" parent="StateMachine"]
+script = ExtResource("2_ee4bf")
+
+[node name="Pause" type="Node" parent="StateMachine"]
+script = ExtResource("3_kbped")
+
+[node name="Running" type="Node" parent="StateMachine"]
+script = ExtResource("4_fj5cn")
+
+[connection signal="pressed" from="Body/GridContainer/EfficiencyShown/EfficiencyUnit" to="." method="_on_efficiency_unit_pressed"]
+[connection signal="pressed" from="Body/StartTimer" to="." method="_on_start_timer_pressed"]
+[connection signal="pressed" from="Body/PauseTimer" to="." method="_on_pause_timer_pressed"]
+[connection signal="pressed" from="Body/ButtonContainer/ResumeTimer" to="." method="_on_resume_timer_pressed"]
+[connection signal="pressed" from="Body/ButtonContainer/EndButton" to="." method="_on_end_button_pressed"]
+[connection signal="pressed" from="Body/StepControlContainer/Desc" to="." method="_on_desc_pressed"]
+[connection signal="text_submitted" from="Body/StepControlContainer/Step" to="." method="_on_step_text_submitted"]
+[connection signal="pressed" from="Body/StepControlContainer/Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Body/ChangeByStep/DescByStep" to="." method="_on_desc_by_step_pressed"]
+[connection signal="pressed" from="Body/ChangeByStep/AddByStep" to="." method="_on_add_by_step_pressed"]
+[connection signal="toggled" from="Body/InitSetting/UseInit/UseInitControl" to="." method="_on_use_init_control_toggled"]
+[connection signal="text_submitted" from="Body/InitSetting/SetInit/SetInitControl" to="." method="_on_line_edit_text_submitted"]
+[connection signal="toggled" from="Body/FastInput/ShownButton/Control" to="." method="_on_control_toggled"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/1" to="." method="_keyboard_input_1"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/2" to="." method="_keyboard_input_2"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/3" to="." method="_keyboard_input_3"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/4" to="." method="_keyboard_input_4"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/5" to="." method="_keyboard_input_5"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/6" to="." method="_keyboard_input_6"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/7" to="." method="_keyboard_input_7"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/8" to="." method="_keyboard_input_8"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/9" to="." method="_keyboard_input_9"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/10" to="." method="_keyboard_input_0"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/Dot" to="." method="_keyboard_input_dot"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Keyboard/Negtive" to="." method="_keyboard_input_negtive"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Commit/CommitButton" to="." method="_keyboard_commit"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Commit/ClearButton" to="." method="_keyboard_clear"]
+[connection signal="pressed" from="Body/FastInput/FastInputControl/Commit/BackspaceButton" to="." method="_keyboard_backspace"]
